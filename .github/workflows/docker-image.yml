@@ -14,8 +14,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: List dir
-      run: ls -al ${{ env.GITHUB_WORKSPACE }}
     - name: Running docker build
       run: ./buildDockerImage.sh -v 18.4.0 -x
       working-directory: ${{ env.GITHUB_WORKSPACE }}
