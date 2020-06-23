@@ -13,8 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Moving build to artifacts directory
-      run: ${{ env.GITHUB_WORKSPACE }}/buildDockerImage.sh -v 18.4.0 -x
+    - name: List dir
+      run: ls -al ${{ env.GITHUB_WORKSPACE }}
+    - name: Running docker build
+      run: ./buildDockerImage.sh -v 18.4.0 -x
+      working-directory: ${{ env.GITHUB_WORKSPACE }}
     - name: Docker Login
       uses: Azure/docker-login@v1
       with:
