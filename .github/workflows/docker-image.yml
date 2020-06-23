@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Docker Login
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: ${{ secrets.DOCKER_USERNAME }}
+        # Container registry password
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        # Container registry server url
+        login-server: https://index.docker.io/v1/
