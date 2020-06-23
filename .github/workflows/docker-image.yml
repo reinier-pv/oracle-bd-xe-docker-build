@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Moving build to artifacts directory
+      run: ./buildDockerImage.sh -v 18.4.0 -x
     - name: Docker Login
       uses: Azure/docker-login@v1
       with:
