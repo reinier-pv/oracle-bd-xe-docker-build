@@ -21,7 +21,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install docker-ce
     - name: Running docker build
-      run: ./buildDockerImage.sh -v 18.4.0 -x
+      run: ./buildDockerImage.sh -v 11.2.0.2 -x
     - name: Docker Login
       uses: Azure/docker-login@v1
       with:
