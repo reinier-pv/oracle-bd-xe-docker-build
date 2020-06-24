@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  oracle-xe-version: '18.4.0'
+  oracle-xe-version: '11.2.0.2'
 
 jobs:
 
@@ -17,29 +17,29 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Install Latest Docker
+    - name: Download oracle xe binary installation
+      if: env.oracle-xe-version == '11.2.0.2'
       run: |
         wget http://download.xskernel.org/soft/linux-rpm/oracle-xe-11.2.0-1.0.x86_64.rpm.zip &&
-        mv oracle-xe-11.2.0-1.0.x86_64.rpm.zip 11.2.0.2/oracle-xe-11.2.0-1.0.x86_64.rpm.zip &&
-        ls -al 11.2.0.2/
-#     - name: Install Latest Docker
-#       run: |
-#         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-#         sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
-#         sudo apt-get update
-#         sudo apt-get install docker-ce    
-#     - name: Running docker build
-#       run: ./buildDockerImage.sh -v ${{ env.oracle-xe-version }} -x
-#     - name: Docker Login
-#       uses: Azure/docker-login@v1
-#       with:
-#         # Container registry username
-#         username: ${{ secrets.DOCKER_USERNAME }}
-#         # Container registry password
-#         password: ${{ secrets.DOCKER_PASSWORD }}
-#         # Container registry server url
-#         login-server: https://index.docker.io/v1/
-#     - name: Docker push image
-#       run: | 
-#         docker tag oracle/database:18.4.0-xe ${{ secrets.DOCKER_USERNAME }}/oracledb:${{ env.oracle-xe-version }}-xe-${{ github.run_number }} &
-#         docker push ${{ secrets.DOCKER_USERNAME }}/oracledb:${{ env.oracle-xe-version }}-xe-${{ github.run_number }}
+        mv oracle-xe-11.2.0-1.0.x86_64.rpm.zip 11.2.0.2/oracle-xe-11.2.0-1.0.x86_64.rpm.zip
+    - name: Install Latest Docker
+      run: |
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
+        sudo apt-get update
+        sudo apt-get install docker-ce    
+    - name: Running docker build
+      run: ./buildDockerImage.sh -v ${{ env.oracle-xe-version }} -x
+    - name: Docker Login
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: ${{ secrets.DOCKER_USERNAME }}
+        # Container registry password
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        # Container registry server url
+        login-server: https://index.docker.io/v1/
+    - name: Docker push image
+      run: | 
+        docker tag oracle/database:18.4.0-xe ${{ secrets.DOCKER_USERNAME }}/oracledb:${{ env.oracle-xe-version }}-xe-${{ github.run_number }} &
+        docker push ${{ secrets.DOCKER_USERNAME }}/oracledb:${{ env.oracle-xe-version }}-xe-${{ github.run_number }}
