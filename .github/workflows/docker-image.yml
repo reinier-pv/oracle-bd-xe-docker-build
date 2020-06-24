@@ -19,8 +19,9 @@ jobs:
     - uses: actions/checkout@v1
     - name: Install Latest Docker
       run: |
-        wget http://download.xskernel.org/soft/linux-rpm/oracle-xe-11.2.0-1.0.x86_64.rpm.zip &
-        ls -al
+        wget http://download.xskernel.org/soft/linux-rpm/oracle-xe-11.2.0-1.0.x86_64.rpm.zip &&
+        mv oracle-xe-11.2.0-1.0.x86_64.rpm.zip 11.2.0.2/oracle-xe-11.2.0-1.0.x86_64.rpm.zip &&
+        ls -al 11.2.0.2/
 #     - name: Install Latest Docker
 #       run: |
 #         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
