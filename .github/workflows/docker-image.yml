@@ -41,5 +41,5 @@ jobs:
         login-server: https://index.docker.io/v1/
     - name: Docker push image
       run: | 
-        docker tag oracle/database:18.4.0-xe ${{ secrets.DOCKER_USERNAME }}/oracledb:${{ env.oracle-xe-version }}-xe-${{ github.run_number }} &
+        docker tag oracle/database:${{ env.oracle-xe-version }}-xe ${{ secrets.DOCKER_USERNAME }}/oracledb:${{ env.oracle-xe-version }}-xe-${{ github.run_number }} &
         docker push ${{ secrets.DOCKER_USERNAME }}/oracledb:${{ env.oracle-xe-version }}-xe-${{ github.run_number }}
